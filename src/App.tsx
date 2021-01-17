@@ -10,15 +10,30 @@ const initialtodos: Array<Todo> = [{text: "to do number one", complete: true}, {
 
 const App = () => {
 
-  const [todos, setCompleted] = useState(initialtodos);  
+  const [todos, setCompleted] = useState(initialtodos); 
+  
+  const toggleTodo: toggleTodo = (selectedTodo) => {
+    const newTodos = todos.map(todo => {
+      if (todo === selectedTodo) {
+        return {
+          ...todo,
+          complete: !todo.complete
+        };
+      }
+      return todo;
+    });
+    setCompleted(newTodos);
+  }
+
+
 
   return (
     <>
     <ListButton text="hello"/>
     <TextInput />
     <p>app works</p>
-    <ToDoItem todo={todos[0]} />
-    <ToDoItem todo={todos[1]} />
+    <ToDoItem todo={todos[0]} toggleTodo={toggleTodo}/>
+    
     </>
   );
 }
